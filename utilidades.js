@@ -7,7 +7,7 @@ const d10 = dado(10)
 const d12 = dado(12)
 const d20 = dado(20)
 const d100 = dado(100)
-const dF = [-1, -1, 0, 0, 1, 1]
+const dF = [-1, 0, 1]
 
 function embaralhar(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -36,4 +36,3 @@ function somar(arr) {
   arr.forEach((valor) => (soma += valor))
   return soma
 }
-console.log(somar(rolarDados(4, dF)))
