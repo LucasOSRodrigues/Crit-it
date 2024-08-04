@@ -42,7 +42,7 @@ button {
 
   box-shadow: rgba(0, 0, 0, 1) 0px 0px 1px;
 
-  font: normal medium Verdana;
+  font-family: "Verdana", Times, serif;
 }
 
 button:hover {
