@@ -1,10 +1,10 @@
 body {
   background: linear-gradient(
-      15deg,
+      0deg,
       rgb(159, 159, 159),
       lightblue,
       rgb(85, 85, 255),
-      darkblue
+      rgb(57, 57, 255)
     )
     fixed;
   height: 100vh;
@@ -53,8 +53,14 @@ button:hover {
   background-color: transparent;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 12px;
-  width: 280px;
+  width: 265px;
   height: 50px;
+
+  display: flex;
+  padding-right: 15px;
+
+  justify-content: right;
+  align-items: center;
 
   box-shadow: rgba(0, 0, 0, 1) 0px 0px 1px;
 }
@@ -85,8 +91,19 @@ button:hover {
   justify-content: space-around;
 }
 
+.rodape {
+  display: flex;
+  width: inherit;
+  justify-content: space-around;
+}
+
 .rolar {
   width: 150px;
+  height: 40px;
+}
+
+.apagar {
+  width: 80px;
   height: 40px;
 }
 
