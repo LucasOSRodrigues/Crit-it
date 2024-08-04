@@ -1,0 +1,103 @@
+body {
+  background: linear-gradient(
+      15deg,
+      rgb(159, 159, 159),
+      lightblue,
+      rgb(85, 85, 255),
+      darkblue
+    )
+    fixed;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-size: 300% 300%;
+  animation: change 10s ease-in-out infinite;
+}
+
+.calculadora {
+  background-color: transparent;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  width: 300px;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 20px;
+}
+
+button {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  margin: 1px;
+
+  box-shadow: rgba(0, 0, 0, 1) 0px 0px 1px;
+
+  font: normal medium Verdana;
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tela {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  width: 280px;
+  height: 50px;
+
+  box-shadow: rgba(0, 0, 0, 1) 0px 0px 1px;
+}
+
+.formula,
+.numero {
+  width: 40px;
+  height: 40px;
+}
+
+.baixo > .dado {
+  height: 40px;
+  width: 45.8px;
+}
+
+.cima > .dado {
+  height: 40px;
+  width: 55px;
+}
+
+.double {
+  width: 81px;
+}
+
+.caixa-botoes {
+  display: flex;
+  width: inherit;
+  justify-content: space-around;
+}
+
+.rolar {
+  width: 150px;
+  height: 40px;
+}
+
+@keyframes change {
+  0% {
+    background-position: 30% 0;
+  }
+  50% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 30% 0;
+  }
+}
