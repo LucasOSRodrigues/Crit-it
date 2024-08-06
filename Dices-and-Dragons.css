@@ -63,6 +63,8 @@ button:hover {
   align-items: center;
 
   box-shadow: rgba(0, 0, 0, 1) 0px 0px 1px;
+
+  overflow: hidden;
 }
 
 .formula,
@@ -81,18 +83,7 @@ button:hover {
   width: 55px;
 }
 
-.double {
-  height: 40px;
-  width: 81px;
-}
-
 .caixa-botoes {
-  display: flex;
-  width: inherit;
-  justify-content: space-around;
-}
-
-.rodape {
   display: flex;
   width: inherit;
   justify-content: space-around;
@@ -104,7 +95,7 @@ button:hover {
 }
 
 .apagar {
-  width: 80px;
+  width: 81px;
   height: 40px;
 }
 
