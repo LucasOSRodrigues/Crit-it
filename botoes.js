@@ -37,7 +37,7 @@ botoes.forEach((botao) =>
 
           case "sinal":
           case "":
-            //Adicionar 1 na sequencia para ser o prefixo do próximo dado.
+            //Adicionar 1 na formula para ser o prefixo do próximo dado.
             formula.push(1)
 
           case "numero":
@@ -54,8 +54,6 @@ botoes.forEach((botao) =>
 
       case "sinal":
         switch (ultimoTipoPressionado) {
-          //Talvez da para por o "ultimoTipoPressionado = sinal" depois do switch
-
           case "dado":
           case "N":
             formula.push(event.target.innerText)
@@ -67,8 +65,8 @@ botoes.forEach((botao) =>
               event.target.innerText === "-"
             ) {
               formula.push(event.target.innerText)
+              ultimoTipoPressionado = "sinal"
             }
-            ultimoTipoPressionado = "sinal"
             break
         }
         break
@@ -98,6 +96,7 @@ botoes.forEach((botao) =>
         break
 
       case "rolar":
+        if (formula[formula.length - 1] === "d") formula.push(1)
         executarFormula()
         break
 
