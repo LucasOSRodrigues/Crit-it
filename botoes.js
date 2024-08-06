@@ -101,7 +101,7 @@ botoes.forEach((botao) =>
         break
 
       case "rolar":
-        executarFormula()
+        executarFormula(sequenciaDeOperacoes)
         break
 
       default:
@@ -111,4 +111,5 @@ botoes.forEach((botao) =>
     tela.innerText = sequenciaDeOperacoes.join("")
   })
 )
+
 //* mudar cor dos botões de sinal caso o valor anterior seja um número // Não tem funcionalidade.
