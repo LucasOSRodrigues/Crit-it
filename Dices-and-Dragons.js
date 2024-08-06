@@ -8,9 +8,6 @@ let sequenciaDeOperacoes = []
 
 botoes.forEach((botao) =>
   botao.addEventListener("click", (event) => {
-    //! LEMBRAR DE TIRAR O CONSOLE.LOG!!
-    // console.log(event.target.className, event.target.innerText)
-
     switch (event.target.className) {
       case "dado":
         const numeroDeFaces = event.target.innerText.slice(1)
