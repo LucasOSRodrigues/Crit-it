@@ -49,3 +49,18 @@ function somar(arr) {
   arr.forEach((valor) => (soma += valor))
   return soma
 }
+
+function keep(resultadosCorrentes, quantidade = 1, maior = 1) {
+  const ultimaRolagem = resultadosCorrentes[resultadosCorrentes.length - 1]
+  const tamanhoUltimaRolagem = ultimaRolagem.length
+
+  if (quantidade > tamanhoUltimaRolagem) quantidade = tamanhoUltimaRolagem
+
+  if (maior) {
+    ultimaRolagem.sort((a, b) => b - a)
+  } else {
+    ultimaRolagem.sort((a, b) => a - b)
+  }
+
+  return ultimaRolagem.slice(0, quantidade)
+}
