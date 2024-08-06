@@ -20,20 +20,25 @@ botoes.forEach((botao) =>
           case "N":
             const tamanhoDaSequencia = sequenciaDeOperacoes.length
             if (
+              // Caso o mesmo dado seja pressionado 2 vezes ou mais.
               sequenciaDeOperacoes[tamanhoDaSequencia - 1] === numeroDeFaces
             ) {
               let quantidadeDeDados = Number(
                 sequenciaDeOperacoes[tamanhoDaSequencia - 3]
               )
+              // Se não houver prefixo de quantidade de dados rolados (rolar somente 1 dado),
               if (!quantidadeDeDados) {
+                // criar prefixo com valor 2.
                 sequenciaDeOperacoes.splice(tamanhoDaSequencia - 2, 0, 2)
               } else {
+                // Senão acrescer 1 no prefixo de quantidade de dados rolados.
                 const numeroDeFacesAcrescido =
                   +sequenciaDeOperacoes[tamanhoDaSequencia - 3] + 1
                 sequenciaDeOperacoes[tamanhoDaSequencia - 3] =
                   numeroDeFacesAcrescido
               }
             } else {
+              //Caso dados diferentes forem pressionados, por "+" entre os dois.
               sequenciaDeOperacoes.push("+", "d")
               if (numeroDeFaces === "N") {
                 ultimoTipoPressionado = "dN"
@@ -57,11 +62,23 @@ botoes.forEach((botao) =>
         }
         break
 
-      case "formula":
+      case "sinal":
         switch (ultimoTipoPressionado) {
+          //Talvez da para por o "ultimoTipoPressionado = sinal" depois do switch
+
           case "dado":
           case "N":
-            // todo se vira ai pra descobrir oq fazer, boa noite
+            sequenciaDeOperacoes.push(event.target.innerText)
+            ultimoTipoPressionado = "sinal"
+            break
+          case "numero":
+            if (
+              event.target.innerText === "+" ||
+              event.target.innerText === "-"
+            ) {
+              sequenciaDeOperacoes.push(event.target.innerText)
+            }
+            ultimoTipoPressionado = "sinal"
             break
         }
         break
@@ -102,4 +119,4 @@ botoes.forEach((botao) =>
     tela.innerText = sequenciaDeOperacoes.join("")
   })
 )
-//* mudar cor dos botões de formula caso o valor anterior seja um número // Não tem funcionalidade.
+//* mudar cor dos botões de sinal caso o valor anterior seja um número // Não tem funcionalidade.
