@@ -37,6 +37,3 @@ function somar(arr) {
   return soma
 }
 
-function executarFormula() {
-  console.log("//todo ExecFormula")
-}
