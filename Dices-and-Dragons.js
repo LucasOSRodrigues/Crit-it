@@ -23,23 +23,14 @@ botoes.forEach((botao) =>
               // Caso o mesmo dado seja pressionado 2 vezes ou mais.
               sequenciaDeOperacoes[tamanhoDaSequencia - 1] === numeroDeFaces
             ) {
-              let quantidadeDeDados = Number(
-                sequenciaDeOperacoes[tamanhoDaSequencia - 3]
-              )
-              // Se não houver prefixo de quantidade de dados rolados (rolar somente 1 dado),
-              if (!quantidadeDeDados) {
-                // criar prefixo com valor 2.
-                sequenciaDeOperacoes.splice(tamanhoDaSequencia - 2, 0, 2)
-              } else {
-                // Senão acrescer 1 no prefixo de quantidade de dados rolados.
-                const numeroDeFacesAcrescido =
-                  +sequenciaDeOperacoes[tamanhoDaSequencia - 3] + 1
-                sequenciaDeOperacoes[tamanhoDaSequencia - 3] =
-                  numeroDeFacesAcrescido
-              }
+              // acrescer 1 no prefixo de quantidade de dados rolados.
+              const numeroDeFacesAcrescido =
+                +sequenciaDeOperacoes[tamanhoDaSequencia - 3] + 1
+              sequenciaDeOperacoes[tamanhoDaSequencia - 3] =
+                numeroDeFacesAcrescido
             } else {
               //Caso dados diferentes forem pressionados, por "+" entre os dois.
-              sequenciaDeOperacoes.push("+", "d")
+              sequenciaDeOperacoes.push("+", 1, "d")
               if (numeroDeFaces === "N") {
                 ultimoTipoPressionado = "dN"
               } else {
@@ -49,8 +40,12 @@ botoes.forEach((botao) =>
             }
             break
 
-          case "numero":
+          case "sinal":
           case "":
+            //Adicionar 1 na sequencia para ser o prefixo do próximo dado.
+            sequenciaDeOperacoes.push(1)
+
+          case "numero":
             sequenciaDeOperacoes.push("d")
             if (numeroDeFaces === "N") {
               ultimoTipoPressionado = "dN"
