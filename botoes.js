@@ -4,7 +4,7 @@ const botaoRolar = document.querySelector(".rolar")
 const botoes = document.querySelectorAll("button")
 
 let ultimoTipoPressionado = ""
-let sequenciaDeOperacoes = []
+let formula = []
 
 botoes.forEach((botao) =>
   botao.addEventListener("click", (event) => {
@@ -15,23 +15,21 @@ botoes.forEach((botao) =>
         switch (ultimoTipoPressionado) {
           case "dado":
           case "N":
-            const tamanhoDaSequencia = sequenciaDeOperacoes.length
+            const tamanhoFormula = formula.length
             if (
               // Caso o mesmo dado seja pressionado 2 vezes ou mais.
-              sequenciaDeOperacoes[tamanhoDaSequencia - 1] === numeroDeFaces
+              formula[tamanhoFormula - 1] === numeroDeFaces
             ) {
               // acrescer 1 no prefixo de quantidade de dados rolados.
-              const numeroDeFacesAcrescido =
-                +sequenciaDeOperacoes[tamanhoDaSequencia - 3] + 1
-              sequenciaDeOperacoes[tamanhoDaSequencia - 3] =
-                numeroDeFacesAcrescido
+              const numeroDeFacesAcrescido = +formula[tamanhoFormula - 3] + 1
+              formula[tamanhoFormula - 3] = numeroDeFacesAcrescido
             } else {
               //Caso dados diferentes forem pressionados, por "+" entre os dois.
-              sequenciaDeOperacoes.push("+", 1, "d")
+              formula.push("+", 1, "d")
               if (numeroDeFaces === "N") {
                 ultimoTipoPressionado = "dN"
               } else {
-                sequenciaDeOperacoes.push(numeroDeFaces)
+                formula.push(numeroDeFaces)
                 ultimoTipoPressionado = "dado"
               }
             }
@@ -40,14 +38,14 @@ botoes.forEach((botao) =>
           case "sinal":
           case "":
             //Adicionar 1 na sequencia para ser o prefixo do próximo dado.
-            sequenciaDeOperacoes.push(1)
+            formula.push(1)
 
           case "numero":
-            sequenciaDeOperacoes.push("d")
+            formula.push("d")
             if (numeroDeFaces === "N") {
               ultimoTipoPressionado = "dN"
             } else {
-              sequenciaDeOperacoes.push(numeroDeFaces)
+              formula.push(numeroDeFaces)
               ultimoTipoPressionado = "dado"
             }
             break
@@ -60,7 +58,7 @@ botoes.forEach((botao) =>
 
           case "dado":
           case "N":
-            sequenciaDeOperacoes.push(event.target.innerText)
+            formula.push(event.target.innerText)
             ultimoTipoPressionado = "sinal"
             break
           case "numero":
@@ -68,7 +66,7 @@ botoes.forEach((botao) =>
               event.target.innerText === "+" ||
               event.target.innerText === "-"
             ) {
-              sequenciaDeOperacoes.push(event.target.innerText)
+              formula.push(event.target.innerText)
             }
             ultimoTipoPressionado = "sinal"
             break
@@ -78,17 +76,16 @@ botoes.forEach((botao) =>
       case "numero":
         switch (ultimoTipoPressionado) {
           case "dado":
-            sequenciaDeOperacoes.push("+", event.target.innerText)
+            formula.push("+", event.target.innerText)
             ultimoTipoPressionado = "numero"
             break
           case "numero":
           case "N":
             // Concatena o atual digito númerico no numero anterior.
-            sequenciaDeOperacoes[sequenciaDeOperacoes.length - 1] +=
-              event.target.innerText
+            formula[formula.length - 1] += event.target.innerText
             break
           default:
-            sequenciaDeOperacoes.push(event.target.innerText)
+            formula.push(event.target.innerText)
             ultimoTipoPressionado =
               ultimoTipoPressionado === "dN" ? "N" : "numero"
             break
@@ -97,18 +94,18 @@ botoes.forEach((botao) =>
 
       case "apagar":
         tela.innerText = ultimoTipoPressionado = ""
-        sequenciaDeOperacoes = []
+        formula = []
         break
 
       case "rolar":
-        executarFormula(sequenciaDeOperacoes)
+        executarFormula()
         break
 
       default:
         tela.innerText = "DEU MERDA!!!"
         break
     }
-    tela.innerText = sequenciaDeOperacoes.join("")
+    tela.innerText = formula.join("")
   })
 )
 
