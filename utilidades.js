@@ -9,6 +9,19 @@ const d20 = dado(20)
 const d100 = dado(100)
 const dF = [-1, 0, 1]
 
+const dados = {
+  2: d2,
+  3: d3,
+  4: d4,
+  6: d6,
+  8: d8,
+  10: d10,
+  12: d12,
+  20: d20,
+  100: d100,
+  F: dF,
+}
+
 function embaralhar(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -36,4 +49,3 @@ function somar(arr) {
   arr.forEach((valor) => (soma += valor))
   return soma
 }
-
