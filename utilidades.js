@@ -36,3 +36,7 @@ function somar(arr) {
   arr.forEach((valor) => (soma += valor))
   return soma
 }
+
+function executarFormula() {
+  console.log("//todo ExecFormula")
+}
