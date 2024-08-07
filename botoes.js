@@ -112,8 +112,9 @@ botoes.forEach((botao) =>
         break
 
       case "rolar":
-        if (!["d", "-", "+"].includes(formula[formula.length - 1]))
-          executarFormula()
+        if (!["d", "-", "+"].includes(formula[formula.length - 1])) {
+          executarFormula(revisarFormula())
+        }
         break
     }
     tela.innerText = formula.join("")
