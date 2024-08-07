@@ -1,39 +1,26 @@
 function executarFormula(formula) {
   const resultadosCorrentes = []
   for (const i in formula) {
-    const valorAnterior = isNaN(Number(formula[+i - 1]))
+    const valorAnterior = !Number(formula[+i - 1])
       ? formula[+i - 1]
       : Number(formula[+i - 1])
 
-    const proximoValor = isNaN(Number(formula[+i + 1]))
+    const proximoValor = !Number(formula[+i + 1])
       ? formula[+i + 1]
       : Number(formula[+i + 1])
 
-    const valorAtual = isNaN(Number(formula[+i]))
-      ? formula[+i]
-      : Number(formula[+i])
+    const valorAtual = !Number(formula[+i]) ? formula[+i] : Number(formula[+i])
 
-    const tipoValorAtual = typeof valorAtual
-    const tipoValorAnterior = typeof valorAnterior
-
-    switch (tipoValorAtual) {
+    switch (typeof valorAtual) {
       case "number":
-        if (
-          (["+", "-", undefined].includes(proximoValor) &&
-            ["+", "-", undefined].includes(valorAnterior)) ||
-          (tipoValorAnterior === "string" &&
-            valorAnterior !== "d" &&
-            proximoValor !== "d")
-
-          // 3d20K1 é um exemplo de bug. 1 deveria aparecer depois do K.
-        ) {
+        if (valorAnterior !== "d" && proximoValor !== "d") {
           resultadosCorrentes.push(valorAtual)
         }
         break
       case "string":
         switch (valorAtual) {
           case "d":
-            let tipoDado = dados[proximoValor]
+            let tipoDado = [...dados[proximoValor]]
 
             resultadosCorrentes.push(
               rolarDados(
@@ -45,6 +32,17 @@ function executarFormula(formula) {
 
           case "F":
             break
+          case "K":
+            const quantidade = +proximoValor
+
+            // resultadosCorrentes[resultadosCorrentes.length - 1] = keep(
+            //   resultadosCorrentes,
+            //   quantidade
+            // )
+
+            resultadosCorrentes.push(keep(resultadosCorrentes, quantidade))
+
+            break
 
           default:
             resultadosCorrentes.push(valorAtual)
@@ -53,7 +51,7 @@ function executarFormula(formula) {
         break
     }
   }
-  console.log(...resultadosCorrentes, formula)
+  console.log(...resultadosCorrentes)
 }
 
 //* Explodir o dado não funciona sem sufixo.
@@ -75,14 +73,23 @@ function executarFormula(formula) {
 function revisarFormula() {
   const formulaRevisada = [...formula]
   for (let i in formulaRevisada) {
-    if (["!", "!!"].includes(formulaRevisada[i])) {
-      const valorAnterior = isNaN(Number(formulaRevisada[+i - 1]))
+    if (
+      ["!", "!!"].includes(formulaRevisada[+i]) &&
+      !Number(formulaRevisada[+i + 1])
+    ) {
+      const valorAnterior = !Number(formulaRevisada[+i - 1])
         ? 1
         : Number(formulaRevisada[+i - 1])
 
-      formulaRevisada.splice(i + 1, 0, valorAnterior)
-
+      formulaRevisada.splice(+i + 1, 0, valorAnterior)
+      // e se ! tiver sufixo?
       //adicionar o valor da esquerda do sinal à direita.
+    }
+    if (
+      ["K", "k", "X", "x", "R", "r"].includes(formulaRevisada[+i]) &&
+      !Number(formulaRevisada[+i + 1])
+    ) {
+      formulaRevisada.splice(+i + 1, 0, 1)
     }
   }
   return formulaRevisada
