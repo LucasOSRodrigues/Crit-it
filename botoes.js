@@ -68,6 +68,22 @@ botoes.forEach((botao) =>
               ultimoTipoPressionado = "sinal"
             }
             break
+          case "sinal":
+            // > e < pode vir depois de R ou r
+            if (
+              ["r", "R"].includes(formula[formula.length - 1]) &&
+              ["≥", "≤"].includes(event.target.innerText)
+            )
+              formula.push(event.target.innerText)
+
+            // + e - pode vir depois de Sinal
+            if (
+              ["+", "-"].includes(event.target.innerText) &&
+              !["+", "-", "≥", "≤"].includes(formula[formula.length - 1])
+            )
+              formula.push(event.target.innerText)
+
+            break
         }
         break
 
@@ -96,12 +112,8 @@ botoes.forEach((botao) =>
         break
 
       case "rolar":
-        if (formula[formula.length - 1] === "d") formula.push(1)
-        executarFormula()
-        break
-
-      default:
-        tela.innerText = "DEU MERDA!!!"
+        if (!["d", "-", "+"].includes(formula[formula.length - 1]))
+          executarFormula()
         break
     }
     tela.innerText = formula.join("")
