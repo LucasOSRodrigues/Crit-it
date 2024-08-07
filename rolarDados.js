@@ -1,4 +1,4 @@
-function executarFormula() {
+function executarFormula(formula) {
   const resultadosCorrentes = []
   for (const i in formula) {
     const valorAnterior = isNaN(Number(formula[+i - 1]))
@@ -43,6 +43,9 @@ function executarFormula() {
             )
             break
 
+          case "F":
+            break
+
           default:
             resultadosCorrentes.push(valorAtual)
             break
@@ -50,7 +53,7 @@ function executarFormula() {
         break
     }
   }
-  console.log(...resultadosCorrentes)
+  console.log(...resultadosCorrentes, formula)
 }
 
 //* Explodir o dado não funciona sem sufixo.
@@ -69,11 +72,18 @@ function executarFormula() {
 //
 //
 
+function revisarFormula() {
+  const formulaRevisada = [...formula]
+  for (let i in formulaRevisada) {
+    if (["!", "!!"].includes(formulaRevisada[i])) {
+      const valorAnterior = isNaN(Number(formulaRevisada[+i - 1]))
+        ? 1
+        : Number(formulaRevisada[+i - 1])
 
-function revisarFormula(){
-    for (let i in formula){
-        if (["!","!!"].includes(formula[i])){
-            //adicionar o valor da esquerda do sinal à direita.
-        }
+      formulaRevisada.splice(i + 1, 0, valorAnterior)
+
+      //adicionar o valor da esquerda do sinal à direita.
     }
+  }
+  return formulaRevisada
 }
