@@ -115,6 +115,9 @@ botoes.forEach((botao) =>
 
       case "rolar":
         if (!["d", "-", "+"].includes(formula[formula.length - 1])) {
+          //! APAGAR LOG
+          console.log(formula)
+
           executarFormula(revisarFormula())
         }
         break
@@ -124,3 +127,4 @@ botoes.forEach((botao) =>
 )
 
 //* mudar cor dos botões de sinal caso o valor anterior seja um número // Não tem funcionalidade.
+//* Apertar um sinal 2 vezes ou mais para multiplicá-lo
