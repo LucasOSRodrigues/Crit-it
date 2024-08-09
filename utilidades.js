@@ -55,6 +55,7 @@ function keep(resultadosCorrentes, quantidade = 1, maior = 1) {
   const tamanhoUltimaRolagem = ultimaRolagem.length
 
   if (quantidade > tamanhoUltimaRolagem) quantidade = tamanhoUltimaRolagem
+  if (quantidade < 0) return [0]
 
   if (maior) {
     ultimaRolagem.sort((a, b) => b - a)
@@ -62,5 +63,45 @@ function keep(resultadosCorrentes, quantidade = 1, maior = 1) {
     ultimaRolagem.sort((a, b) => a - b)
   }
 
-  return ultimaRolagem.slice(0, quantidade)
+  const valoresMantidos = ultimaRolagem.slice(0, quantidade)
+
+  return valoresMantidos.length ? valoresMantidos : [0]
 }
+
+// TODO---!!
+// TODO:  Dá um jeito nessa função aq
+// R = reroll rerrola quaisquer valores igual á 1 ou igual ao sufixo ou
+// se o sufixo for > ou <, rerrolar todos os valores que satisfaz a condição,
+// Acontece até a condição ser falsa.
+
+// r = funciona como o R, mas ele rerrola somente 1 única vez.
+
+// sinal pode ser "R" e "r"
+// Condição pode ser 0, "=>" ou "<="
+function Reroll(rolagens, faces, valor, sinal, condicao = 0) {
+  let tamanhoRolagens = rolagens.length
+
+  switch (condicao) {
+    case "0":
+      for (const i = 0; i < tamanhoRolagens; ) {
+        if (i === valor) {
+          // Adiciona um valor aleatorio na frente do valor atual
+          rolagens.splice(+i, 0, +rolarDados(1, faces))
+
+          // Aumenta o tamanhoRolagens pq o statement acima acresce a variável.
+          tamanhoRolagens++
+          //i += 2 pra pular o valor já criado caso sinal === "r"
+          // Se sinal === "R", rerrolar o próximo numero, independente
+          sinal === "R" ? i++ : (i += 2)
+        }
+      }
+  }
+}
+
+//TESTANDO Reroll()....
+let arr = [1, 2, 0, 9, 8, 7, 4, 5, 6, 3]
+
+Reroll(arr, 10, 1, "R", 0)
+
+// console.log(arr)
+//---!!
