@@ -75,22 +75,6 @@ function executarFormula(formula) {
   console.log(...resultadosCorrentes)
 }
 
-//* Explodir o dado não funciona sem sufixo.
-
-// Será util no futuro
-//
-// case "K":
-//  const quantidade = 1
-// if (typeof proximoValor === "number") {
-//      quantidade = proximoValor
-//   }
-//     resultadosCorrentes[resultadosCorrentes.length - 1] = keep(
-//       resultadosCorrentes,
-//       quantidade,
-//     )
-//
-//
-
 function revisarFormula() {
   const formulaRevisada = [...formula]
   for (let i in formulaRevisada) {
@@ -103,8 +87,6 @@ function revisarFormula() {
         : Number(formulaRevisada[+i - 1])
 
       formulaRevisada.splice(+i + 1, 0, valorAnterior)
-      // e se ! tiver sufixo?
-      //adicionar o valor da esquerda do sinal à direita.
     }
     if (
       ["K", "k", "X", "x", "R", "r"].includes(formulaRevisada[+i]) &&
