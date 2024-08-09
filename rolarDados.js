@@ -1,5 +1,6 @@
 function executarFormula(formula) {
   const resultadosCorrentes = []
+
   for (const i in formula) {
     const valorAnterior = !Number(formula[+i - 1])
       ? formula[+i - 1]
@@ -13,7 +14,7 @@ function executarFormula(formula) {
 
     switch (typeof valorAtual) {
       case "number":
-        if (valorAnterior !== "d" && proximoValor !== "d") {
+        if (["+", "-"].includes(valorAnterior) && proximoValor !== "d") {
           resultadosCorrentes.push(valorAtual)
         }
         break
