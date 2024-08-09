@@ -77,7 +77,7 @@ function executarFormula(formula) {
 
 function revisarFormula() {
   const formulaRevisada = [...formula]
-  for (let i in formulaRevisada) {
+  for (let i = 0; i < formulaRevisada.length; i++) {
     if (
       ["!", "!!"].includes(formulaRevisada[+i]) &&
       !Number(formulaRevisada[+i + 1])
