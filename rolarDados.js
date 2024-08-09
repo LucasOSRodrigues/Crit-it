@@ -55,7 +55,13 @@ function executarFormula(formula) {
             )
             break
 
-            resultadosCorrentes.push(keep(resultadosCorrentes, quantidade))
+          case "R":
+          case "r":
+            // R = reroll rerrola quaisquer valores igual á 1 ou igual ao sufixo ou
+            // se o sufixo for > ou <, rerrolar todos os valores que satisfaz a condição,
+            // Acontece até a condição ser falsa.
+
+            // r = funciona como o R, mas ele rerrola somente 1 única vez.
 
             break
 
