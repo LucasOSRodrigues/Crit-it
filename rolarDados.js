@@ -93,6 +93,9 @@ function revisarFormula() {
       !Number(formulaRevisada[+i + 1])
     ) {
       formulaRevisada.splice(+i + 1, 0, 1)
+
+      if (["r", "R"].includes(formulaRevisada[i]))
+        formulaRevisada.splice(+i + 1, 0, formulaRevisada[+i - 1])
     }
   }
   return formulaRevisada
