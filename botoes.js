@@ -36,6 +36,8 @@ botoes.forEach((botao) =>
             break
 
           case "sinal":
+            if (!["+", "-"].includes(formula[formula.length - 1]))
+              formula.push("+")
           case "":
             //Adicionar 1 na formula para ser o prefixo do próximo dado.
             formula.push(1)
