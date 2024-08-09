@@ -34,12 +34,26 @@ function executarFormula(formula) {
           case "F":
             break
           case "K":
-            const quantidade = +proximoValor
+          case "k":
+            resultadosCorrentes[resultadosCorrentes.length - 1] = keep(
+              resultadosCorrentes,
+              +proximoValor,
+              valorAtual === "K" ? 1 : 0
+            )
+            break
 
-            // resultadosCorrentes[resultadosCorrentes.length - 1] = keep(
-            //   resultadosCorrentes,
-            //   quantidade
-            // )
+          case "X":
+          case "x":
+            const ultimaRolagem =
+              resultadosCorrentes[resultadosCorrentes.length - 1]
+            const tamanhoUltimaRolagem = ultimaRolagem.length
+
+            resultadosCorrentes[resultadosCorrentes.length - 1] = keep(
+              resultadosCorrentes,
+              tamanhoUltimaRolagem - +proximoValor,
+              valorAtual === "x" ? 1 : 0
+            )
+            break
 
             resultadosCorrentes.push(keep(resultadosCorrentes, quantidade))
 
