@@ -14,7 +14,10 @@ function executarFormula(formula) {
 
     switch (typeof valorAtual) {
       case "number":
-        if (["+", "-"].includes(valorAnterior) && proximoValor !== "d") {
+        if (
+          ["+", "-", undefined].includes(valorAnterior) &&
+          proximoValor !== "d"
+        ) {
           resultadosCorrentes.push(valorAtual)
         }
         break
