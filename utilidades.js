@@ -78,30 +78,44 @@ function keep(resultadosCorrentes, quantidade = 1, maior = 1) {
 
 // sinal pode ser "R" e "r"
 // Condição pode ser 0, "=>" ou "<="
+// valor é o numero usado na comparacao
+// faces é a quantidade de faces do ultimo dado
+// rolagens é o array com os ultimos valores
 function Reroll(rolagens, faces, valor, sinal, condicao = 0) {
+  // Evita um loop infinito caso uma condicao sempre seja verdadeira
+  // Loops infinitos so acontecem com sinal == "R"
+  // Loops acontecem quando o valor é o número maximo de faces e a condicao é <=
+  // ou quando o valor é o numero mínimo e a condicao é >=
+  if (
+    sinal == "R" &&
+    ((condicao === "≥" && valor <= (faces === "F" ? -1 : 1)) ||
+      (condicao === "≤" && valor >= (faces === "F" ? 1 : faces)))
+  ) {
+    rolagens = [Infinity]
+    return rolagens
+  }
+
   let tamanhoRolagens = rolagens.length
 
-  switch (condicao) {
-    case "0":
-      for (const i = 0; i < tamanhoRolagens; ) {
-        if (i === valor) {
-          // Adiciona um valor aleatorio na frente do valor atual
-          rolagens.splice(+i, 0, +rolarDados(1, faces))
-
-          // Aumenta o tamanhoRolagens pq o statement acima acresce a variável.
-          tamanhoRolagens++
-          //i += 2 pra pular o valor já criado caso sinal === "r"
-          // Se sinal === "R", rerrolar o próximo numero, independente
-          sinal === "R" ? i++ : (i += 2)
-        }
-      }
+  for (let i = 0; i < tamanhoRolagens; i++) {
+    if (
+      (rolagens[i] === +valor && condicao === 0) ||
+      (rolagens[i] >= valor && condicao === "≥") ||
+      (rolagens[i] <= valor && condicao === "≤")
+    ) {
+      const tipoDado = dados[faces]
+      // Adiciona um valor aleatorio na frente do valor atual
+      rolagens.splice(
+        i + 1,
+        0,
+        +rolarDados(1, tipoDado ? tipoDado : dado(faces))
+      )
+      // Aumenta o tamanhoRolagens pq o statement acima acresce a variável.
+      tamanhoRolagens++
+      //i++ pra pular o valor já criado caso sinal === "r"
+      // Se sinal === "R", rerrolar o próximo numero, independente
+      sinal === "R" ? true : i++
+    }
   }
+  return rolagens
 }
-
-//TESTANDO Reroll()....
-let arr = [1, 2, 0, 9, 8, 7, 4, 5, 6, 3]
-
-Reroll(arr, 10, 1, "R", 0)
-
-// console.log(arr)
-//---!!
