@@ -106,8 +106,19 @@ function revisarFormula() {
       formulaRevisada.splice(+i + 1, 0, 1)
 
       if (["r", "R"].includes(formulaRevisada[i]))
-        formulaRevisada.splice(+i + 1, 0, formulaRevisada[+i - 1])
+        //todo      A correção ocorre aqui.                !!!!!!!!!!!!
+
+        formulaRevisada.splice(+i + 1, 0, +formulaRevisada[+i - 1])
     }
   }
+  console.log(formulaRevisada)
+
   return formulaRevisada
 }
+
+//TODO    bug revisarFormula(): Reroll exige o parametro "valor",
+//TODO    que pode variar de posição se a formula possuir um ≥ ou ≤
+//TODO    ou não possuir comparador.
+//TODO    Verificar se existe comparador, se sim: verificar se tem numero
+//TODO    Na frente dele, se não: Adicionar 1.
+//TODO    Se não existir comparador, adicionar 1 na frente do "R" ou "r"
