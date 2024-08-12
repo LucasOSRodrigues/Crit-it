@@ -100,20 +100,19 @@ function revisarFormula() {
       formulaRevisada.splice(+i + 1, 0, valorAnterior)
     }
     if (
-      ["K", "k", "X", "x", "R", "r"].includes(formulaRevisada[+i]) &&
+      ["K", "k", "X", "x", "R", "r", "≥", "≤"].includes(formulaRevisada[+i]) &&
       !Number(formulaRevisada[+i + 1])
     ) {
       formulaRevisada.splice(+i + 1, 0, 1)
-
-      if (["r", "R"].includes(formulaRevisada[i]))
-        //todo      A correção ocorre aqui.                !!!!!!!!!!!!
-
-        formulaRevisada.splice(+i + 1, 0, +formulaRevisada[+i - 1])
     }
-  }
-  console.log(formulaRevisada)
 
-  return formulaRevisada
+    if (["r", "R"].includes(formulaRevisada[i])) {
+      formulaRevisada.splice(+i + 1, 0, +formulaRevisada[i - 1])
+    }
+    console.log(formulaRevisada)
+
+    return formulaRevisada
+  }
 }
 
 //TODO    bug revisarFormula(): Reroll exige o parametro "valor",
