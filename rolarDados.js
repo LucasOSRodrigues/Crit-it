@@ -76,6 +76,12 @@ function executarFormula(formula) {
 
             break
 
+          case "!":
+          case "!!":
+
+          
+            //? "!" e "!!" Funcionam semelhante ao R. Explorar essa ideia!
+            break
           default:
             resultadosCorrentes.push(valorAtual)
             break
