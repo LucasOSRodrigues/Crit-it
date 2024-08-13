@@ -68,28 +68,29 @@ function keep(resultadosCorrentes, quantidade = 1, maior = 1) {
   return valoresMantidos.length ? valoresMantidos : [0]
 }
 
-// TODO---!!
-// TODO:  Dá um jeito nessa função aq
 // R = reroll rerrola quaisquer valores igual á 1 ou igual ao sufixo ou
 // se o sufixo for > ou <, rerrolar todos os valores que satisfaz a condição,
 // Acontece até a condição ser falsa.
 
 // r = funciona como o R, mas ele rerrola somente 1 única vez.
 
-// sinal pode ser "R" e "r"
-// Condição pode ser 0, "=>" ou "<="
-// valor é o numero usado na comparacao
-// faces é a quantidade de faces do ultimo dado
-// rolagens é o array com os ultimos valores
-function Reroll(rolagens, faces, valor, sinal, condicao = 0) {
+/**
+ * @param {number[]} rolagens - Array com os ultimos valores rolados.
+ * @param {number} faces - Quantidade de faces do último dado.
+ * @param {number} valor - Número usado na comparação. Define o valor que será comparado.
+ * @param {string} sinal - Pode ser "R" ou "r". Define o rerrolamento acontecerá uma única vez ou não por instância.
+ * @param {string} condicao - Poder ser "", "≥" ou "≤". Representa qual comparação deve ser feita.
+ * @returns {number[]}
+ */
+function Reroll(rolagens, faces, valor, sinal, condicao = "") {
   // Evita um loop infinito caso uma condicao sempre seja verdadeira
-  // Loops infinitos so acontecem com sinal == "R"
-  // Loops acontecem quando o valor é o número maximo de faces e a condicao é <=
-  // ou quando o valor é o numero mínimo e a condicao é >=
   if (
     sinal == "R" &&
+    // Loops infinitos so acontecem com sinal == "R"
     ((condicao === "≥" && valor <= (faces === "F" ? -1 : 1)) ||
+      // Loops acontecem quando o valor é o número maximo de faces e a condicao é <=
       (condicao === "≤" && valor >= (faces === "F" ? 1 : faces)))
+    // ou quando o valor é o numero mínimo e a condicao é >=
   ) {
     rolagens = [Infinity]
     return rolagens
@@ -99,7 +100,7 @@ function Reroll(rolagens, faces, valor, sinal, condicao = 0) {
 
   for (let i = 0; i < tamanhoRolagens; i++) {
     if (
-      (rolagens[i] === +valor && condicao === 0) ||
+      (rolagens[i] === +valor && !condicao) ||
       (rolagens[i] >= valor && condicao === "≥") ||
       (rolagens[i] <= valor && condicao === "≤")
     ) {
