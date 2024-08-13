@@ -2,15 +2,11 @@ function executarFormula(formula) {
   const resultadosCorrentes = []
 
   for (const i in formula) {
-    const valorAnterior = !Number(formula[+i - 1])
-      ? formula[+i - 1]
-      : Number(formula[+i - 1])
+    const valorAnterior = !+formula[i - 1] ? formula[i - 1] : +formula[i - 1]
 
-    const proximoValor = !Number(formula[+i + 1])
-      ? formula[+i + 1]
-      : Number(formula[+i + 1])
+    const proximoValor = !+formula[+i + 1] ? formula[+i + 1] : +formula[+i + 1]
 
-    const valorAtual = !Number(formula[+i]) ? formula[+i] : Number(formula[+i])
+    const valorAtual = !+formula[i] ? formula[i] : +formula[i]
 
     switch (typeof valorAtual) {
       case "number":
@@ -62,9 +58,13 @@ function executarFormula(formula) {
           case "r":
             const rolagens = resultadosCorrentes[resultadosCorrentes.length - 1]
             const faces = proximoValor
-            const valor = formula[+i + 2]
             const sinal = valorAtual
-            const condicao = formula[+i + 3]
+
+            const éComparador = ["≥", "≤"].includes(formula[+i + 2])
+
+            const valor = éComparador ? formula[+i + 3] : formula[+i + 2]
+
+            const condicao = éComparador ? formula[+i + 2] : 0
 
             resultadosCorrentes[resultadosCorrentes.length - 1] = Reroll(
               rolagens,
@@ -86,38 +86,48 @@ function executarFormula(formula) {
   console.log(...resultadosCorrentes)
 }
 
+// Revisa formula e adiciona valores após sinais para simplificar a execução da formular
+
 function revisarFormula() {
   const formulaRevisada = [...formula]
   for (let i = 0; i < formulaRevisada.length; i++) {
-    if (
-      ["!", "!!"].includes(formulaRevisada[+i]) &&
-      !Number(formulaRevisada[+i + 1])
-    ) {
-      const valorAnterior = !Number(formulaRevisada[+i - 1])
-        ? 1
-        : Number(formulaRevisada[+i - 1])
+    const proximoValor = formulaRevisada[+i + 1]
+    const valorAnterior = formulaRevisada[i - 1]
+    const valorAtual = formulaRevisada[i]
+    /*
+    Se o valor atual for "!" ou "!!" e o próximo valor não for numerico
+    Adicionar o valor anterior (faces do ultimo dado rolado) na frente do atual.
+
+    Isso serve para o código saber qual dado ele deve rolar caso exploda.
+    */
+    if (["!", "!!"].includes(valorAtual) && !+proximoValor) {
+      const valorAnterior = !+valorAnterior ? 1 : +formulaRevisada[+i - 1]
 
       formulaRevisada.splice(+i + 1, 0, valorAnterior)
     }
-    if (
-      ["K", "k", "X", "x", "R", "r", "≥", "≤"].includes(formulaRevisada[+i]) &&
-      !Number(formulaRevisada[+i + 1])
-    ) {
+
+    /* Se o valor atual for "K", "k", "X", "x", "≥" ou "≤"
+     e o próximo valor não for numerico: Adicionar 1 na frente
+     */
+    if (["K", "k", "X", "x", "≥", "≤"].includes(valorAtual) && !+proximoValor) {
       formulaRevisada.splice(+i + 1, 0, 1)
     }
 
-    if (["r", "R"].includes(formulaRevisada[i])) {
-      formulaRevisada.splice(+i + 1, 0, +formulaRevisada[i - 1])
-    }
-    console.log(formulaRevisada)
+    /*
+     Se o valor atual for "R" ou "r"
+        Adicionar o valor anterior (faces do ultimo dado) à frente.
+      se proximo valor não for numerico e nem comparador:
+        Adicionar 1 à frente.
+     */
+    if (["r", "R"].includes(valorAtual)) {
+      if (!["≥", "≤"].includes(proximoValor) && !+proximoValor) {
+        formulaRevisada.splice(+i + 1, 0, 1)
+      }
 
-    return formulaRevisada
+      formulaRevisada.splice(+i + 1, 0, +valorAnterior)
+    } // formula: ("R" ou "r"), valor, faces
   }
-}
+  console.log(formulaRevisada)
 
-//TODO    bug revisarFormula(): Reroll exige o parametro "valor",
-//TODO    que pode variar de posição se a formula possuir um ≥ ou ≤
-//TODO    ou não possuir comparador.
-//TODO    Verificar se existe comparador, se sim: verificar se tem numero
-//TODO    Na frente dele, se não: Adicionar 1.
-//TODO    Se não existir comparador, adicionar 1 na frente do "R" ou "r"
+  return formulaRevisada
+}
