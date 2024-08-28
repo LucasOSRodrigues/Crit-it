@@ -56,32 +56,55 @@ function executarFormula(formula) {
 
           case "R":
           case "r":
-            const rolagens = resultadosCorrentes[resultadosCorrentes.length - 1]
-            const faces = proximoValor
-            const sinal = valorAtual
+            const rolagensR =
+              resultadosCorrentes[resultadosCorrentes.length - 1]
+            const facesR = proximoValor
+            const sinalR = valorAtual
 
-            const éComparador = ["≥", "≤"].includes(formula[+i + 2])
+            const éComparadorR = ["≥", "≤"].includes(formula[+i + 2])
 
-            const valor = éComparador ? formula[+i + 3] : formula[+i + 2]
+            const comparadoR = éComparadorR ? formula[+i + 3] : formula[+i + 2]
 
-            const condicao = éComparador ? formula[+i + 2] : 0
+            const condicaoR = éComparadorR ? formula[+i + 2] : 0
 
             resultadosCorrentes[resultadosCorrentes.length - 1] = Reroll(
-              rolagens,
-              faces,
-              valor,
-              sinal,
-              condicao
+              rolagensR,
+              facesR,
+              comparadoR,
+              sinalR,
+              condicaoR
             )
 
             break
 
           case "!":
           case "!!":
+            const rolagensE =
+              resultadosCorrentes[resultadosCorrentes.length - 1]
+            const sinalE = valorAtual == "!" ? "R" : "r"
 
-          
-            //? "!" e "!!" Funcionam semelhante ao R. Explorar essa ideia!
+            resultadosCorrentes[resultadosCorrentes.length - 1] = Reroll(
+              rolagensE,
+              proximoValor,
+              proximoValor,
+              sinalE,
+              ""
+            )
             break
+
+          case "≥":
+          case "≤":
+            const rolagens = resultadosCorrentes[resultadosCorrentes.length - 1]
+            const comparador = valorAtual
+            const comparado = proximoValor
+
+            resultadosCorrentes[resultadosCorrentes.length - 1] = comparar(
+              rolagens,
+              comparador,
+              comparado
+            )
+            break
+
           default:
             resultadosCorrentes.push(valorAtual)
             break
@@ -92,7 +115,7 @@ function executarFormula(formula) {
   console.log(...resultadosCorrentes)
 }
 
-// Revisa formula e adiciona valores após sinais para simplificar a execução da formular
+// Revisa formula e adiciona valores após sinais para simplificar a execução da formula
 
 function revisarFormula() {
   const formulaRevisada = [...formula]
@@ -107,9 +130,9 @@ function revisarFormula() {
     Isso serve para o código saber qual dado ele deve rolar caso exploda.
     */
     if (["!", "!!"].includes(valorAtual) && !+proximoValor) {
-      const valorAnterior = !+valorAnterior ? 1 : +formulaRevisada[+i - 1]
+      const facesUltimoDado = !+valorAnterior ? 1 : +formulaRevisada[+i - 1]
 
-      formulaRevisada.splice(+i + 1, 0, valorAnterior)
+      formulaRevisada.splice(+i + 1, 0, facesUltimoDado)
     }
 
     /* Se o valor atual for "K", "k", "X", "x", "≥" ou "≤"
