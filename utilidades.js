@@ -45,6 +45,8 @@ function rolarDados(quantidade, dado) {
 }
 
 function somar(arr) {
+  if (typeof arr === "number") return arr
+
   let soma = 0
   arr.forEach((valor) => (soma += valor))
   return soma
@@ -130,7 +132,7 @@ function Reroll(rolagens, faces, comparado, sinal, condicao = "") {
 
 function comparar(rolagens, comparador, comparado) {
   const rolagensComparadas = []
-  for (let i in rolagens) {
+  for (let i of rolagens) {
     if (
       (i >= comparado && comparador == "≥") ||
       (comparador === "≤" && i <= comparado)

@@ -127,7 +127,11 @@ botoes.forEach((botao) =>
 
       case "rolar":
         if (!["d", "-", "+"].includes(formula.at(-1))) {
-          executarFormula(revisarFormula())
+          const revisado = revisarFormula()
+          const rolagens = executarFormula(revisado)
+          const resultado = calcular([...rolagens])
+
+          console.log(resultado, ...rolagens)
         }
         break
     }

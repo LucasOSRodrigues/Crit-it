@@ -20,7 +20,9 @@ function executarFormula(formula) {
       case "string":
         switch (valorAtual) {
           case "d":
-            let tipoDado = [...dados[proximoValor]]
+            let tipoDado = dados.hasOwnProperty(proximoValor)
+              ? [...dados[proximoValor]]
+              : false
 
             resultadosCorrentes.push(
               rolarDados(
@@ -112,7 +114,8 @@ function executarFormula(formula) {
         break
     }
   }
-  console.log(...resultadosCorrentes)
+
+  return resultadosCorrentes
 }
 
 // Revisa formula e adiciona valores após sinais para simplificar a execução da formula
@@ -129,6 +132,11 @@ function revisarFormula() {
 
     Isso serve para o código saber qual dado ele deve rolar caso exploda.
     */
+    if (typeof valorAtual === "number")
+      formulaRevisada.splice(i, 1, +valorAtual)
+
+    if (valorAtual === "%") formulaRevisada.splice(i, 1, 100)
+
     if (["!", "!!"].includes(valorAtual) && !+proximoValor) {
       const facesUltimoDado = !+valorAnterior ? 1 : +formulaRevisada[+i - 1]
 
@@ -156,7 +164,29 @@ function revisarFormula() {
       formulaRevisada.splice(+i + 1, 0, +valorAnterior)
     } // formula: ("R" ou "r"), valor, faces
   }
-  console.log(formulaRevisada)
 
   return formulaRevisada
+}
+
+function calcular(formula) {
+  for (let i in formula) {
+    if (["object", "number"].includes(typeof formula[i])) {
+      formula.splice(i, 1, somar(formula[i]))
+    }
+  }
+
+  let soma = +formula[0]
+
+  for (let i in formula) {
+    const proximoValor = formula[+i + 1]
+    const valorAnterior = formula[i - 1]
+    const valorAtual = formula[i]
+
+    if (valorAtual === "+") {
+      soma += +proximoValor
+    } else if (valorAnterior === "-") {
+      soma -= +proximoValor
+    }
+  }
+  return soma ? soma : 0
 }
