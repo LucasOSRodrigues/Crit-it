@@ -77,20 +77,20 @@ function keep(resultadosCorrentes, quantidade = 1, maior = 1) {
 /**
  * @param {number[]} rolagens - Array com os ultimos valores rolados.
  * @param {number} faces - Quantidade de faces do último dado.
- * @param {number} valor - Número usado na comparação. Define o valor que será comparado.
+ * @param {number} comparado - Número usado na comparação. Define o valor que será comparado.
  * @param {string} sinal - Pode ser "R" ou "r". Define o rerrolamento acontecerá uma única vez ou não por instância.
  * @param {string} condicao - Poder ser "", "≥" ou "≤". Representa qual comparação deve ser feita.
  * @returns {number[]}
  */
-function Reroll(rolagens, faces, valor, sinal, condicao = "") {
+function Reroll(rolagens, faces, comparado, sinal, condicao = "") {
   // Evita um loop infinito caso uma condicao sempre seja verdadeira
   if (
     sinal == "R" &&
     // Loops infinitos so acontecem com sinal == "R"
-    ((condicao === "≥" && valor <= (faces === "F" ? -1 : 1)) ||
-      // Loops acontecem quando o valor é o número maximo de faces e a condicao é <=
-      (condicao === "≤" && valor >= (faces === "F" ? 1 : faces)))
-    // ou quando o valor é o numero mínimo e a condicao é >=
+    ((condicao === "≥" && comparado <= (faces === "F" ? -1 : 1)) ||
+      // Loops acontecem quando o comparado é o número maximo de faces e a condicao é <=
+      (condicao === "≤" && comparado >= (faces === "F" ? 1 : faces)))
+    // ou quando o comparado é o numero mínimo e a condicao é >=
   ) {
     rolagens = [Infinity]
     return rolagens
@@ -100,9 +100,9 @@ function Reroll(rolagens, faces, valor, sinal, condicao = "") {
 
   for (let i = 0; i < tamanhoRolagens; i++) {
     if (
-      (rolagens[i] === +valor && !condicao) ||
-      (rolagens[i] >= valor && condicao === "≥") ||
-      (rolagens[i] <= valor && condicao === "≤")
+      (rolagens[i] === +comparado && !condicao) ||
+      (rolagens[i] >= comparado && condicao === "≥") ||
+      (rolagens[i] <= comparado && condicao === "≤")
     ) {
       const tipoDado = dados[faces]
       // Adiciona um valor aleatorio na frente do valor atual
@@ -119,4 +119,23 @@ function Reroll(rolagens, faces, valor, sinal, condicao = "") {
     }
   }
   return rolagens
+}
+
+/**
+ * @returns {number[]}
+ * @param {number[]} rolagens Array com os ultimos valores rolados.
+ * @param {string} comparador Comparador pode ser "≥" ou "≤".
+ * @param {number} comparado Numero que sera comparado.
+ */
+
+function comparar(rolagens, comparador, comparado) {
+  const rolagensComparadas = []
+  for (let i in rolagens) {
+    if (
+      (i >= comparado && comparador == "≥") ||
+      (comparador === "≤" && i <= comparado)
+    )
+      rolagensComparadas.push(i)
+  }
+  return rolagensComparadas
 }
