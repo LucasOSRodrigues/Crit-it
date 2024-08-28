@@ -15,8 +15,11 @@ botoes.forEach((botao) =>
         switch (ultimoTipoPressionado) {
           case "dado":
           case "N":
+          case "sufixo":
             const tamanhoFormula = formula.length
             if (
+              // Evitar bugs se o sufixo for igual ao numero de faces
+              ultimoTipoPressionado != "sufixo" &&
               // Caso o mesmo dado seja pressionado 2 vezes ou mais.
               formula[tamanhoFormula - 1] === numeroDeFaces
             ) {
@@ -36,8 +39,7 @@ botoes.forEach((botao) =>
             break
 
           case "sinal":
-            if (!["+", "-"].includes(formula[formula.length - 1]))
-              formula.push("+")
+            if (!["+", "-"].includes(formula.at(-1))) formula.push("+")
           case "":
             //Adicionar 1 na formula para ser o prefixo do próximo dado.
             formula.push(1)
@@ -62,6 +64,7 @@ botoes.forEach((botao) =>
             ultimoTipoPressionado = "sinal"
             break
           case "numero":
+          case "sufixo":
             if (
               event.target.innerText === "+" ||
               event.target.innerText === "-"
@@ -81,7 +84,7 @@ botoes.forEach((botao) =>
             // + e - pode vir depois de Sinal
             if (
               ["+", "-"].includes(event.target.innerText) &&
-              !["+", "-", "≥", "≤"].includes(formula[formula.length - 1])
+              !["+", "-", "≥", "≤"].includes(formula.at(-1))
             )
               formula.push(event.target.innerText)
 
@@ -95,11 +98,20 @@ botoes.forEach((botao) =>
             formula.push("+", event.target.innerText)
             ultimoTipoPressionado = "numero"
             break
+          case "sufixo":
           case "numero":
           case "N":
             // Concatena o atual digito númerico no numero anterior.
             formula[formula.length - 1] += event.target.innerText
             break
+          case "sinal":
+            if (["!", "!!"].includes(formula.at(-1))) break
+
+            formula.push(event.target.innerText)
+            ultimoTipoPressionado = "sufixo"
+            break
+          // Sufixo é todo numero que vem depois de um sinal
+
           default:
             formula.push(event.target.innerText)
             ultimoTipoPressionado =
@@ -114,10 +126,7 @@ botoes.forEach((botao) =>
         break
 
       case "rolar":
-        if (!["d", "-", "+"].includes(formula[formula.length - 1])) {
-          //! APAGAR LOG
-          console.log(formula)
-
+        if (!["d", "-", "+"].includes(formula.at(-1))) {
           executarFormula(revisarFormula())
         }
         break
