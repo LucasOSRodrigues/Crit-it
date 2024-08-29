@@ -131,7 +131,8 @@ botoes.forEach((botao) =>
           const rolagens = executarFormula(revisado)
           const resultado = calcular([...rolagens])
 
-          console.log(resultado, ...rolagens)
+          // exibir()
+          console.log(resultado, formula, ...rolagens)
         }
         break
     }
