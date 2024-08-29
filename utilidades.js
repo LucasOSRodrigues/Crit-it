@@ -22,6 +22,8 @@ const dados = {
   F: dF,
 }
 
+const histSec = document.getElementById("hist")
+
 function embaralhar(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -140,4 +142,27 @@ function comparar(rolagens, comparador, comparado) {
       rolagensComparadas.push(i)
   }
   return rolagensComparadas
+}
+
+function exibir(resultado, formula, rolagens) {
+  const blocoSec = document.createElement("section")
+  const verticalDiv = document.createElement("vertical")
+  const formulaDiv = document.createElement("div")
+  const rolagensDiv = document.createElement("div")
+  const resultadoDiv = document.createElement("div")
+
+  blocoSec.className = "bloco"
+  verticalDiv.className = "vertical"
+  rolagensDiv.className = "rolagens"
+  formulaDiv.className = "formula"
+  resultadoDiv.className = "resultado"
+
+  formulaDiv.innerText = formula.join("")
+  rolagensDiv.innerText = rolagens.join(" ")
+  resultadoDiv.innerText = resultado
+
+  verticalDiv.append(formulaDiv, rolagensDiv)
+  blocoSec.append(verticalDiv, resultadoDiv)
+
+  histSec.append(blocoSec)
 }

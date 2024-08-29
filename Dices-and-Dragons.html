@@ -8,73 +8,76 @@
     <link rel="shortcut icon" href="dice.ico" type="image/x-icon" />
   </head>
   <body>
-    <section class="calculadora">
-      <section class="tela"></section>
-      <section class="dados">
-        <div class="fileira cima">
-          <button type="button" class="dado">dN</button
-          ><button type="button" class="dado">d%</button
-          ><button type="button" class="dado">d20</button
-          ><button type="button" class="dado">d12</button
-          ><button type="button" class="dado">d10</button>
-        </div>
-        <div class="fileira baixo">
-          <button type="button" class="dado">d8</button
-          ><button type="button" class="dado">d6</button
-          ><button type="button" class="dado">d4</button
-          ><button type="button" class="dado">d3</button
-          ><button type="button" class="dado">d2</button
-          ><button type="button" class="dado">dF</button>
-        </div>
-      </section>
+    <main>
+      <section class="container calc">
+        <section class="tela"></section>
+        <section class="dados">
+          <div class="fileira cima">
+            <button type="button" class="dado">dN</button
+            ><button type="button" class="dado">d%</button
+            ><button type="button" class="dado">d20</button
+            ><button type="button" class="dado">d12</button
+            ><button type="button" class="dado">d10</button>
+          </div>
+          <div class="fileira baixo">
+            <button type="button" class="dado">d8</button
+            ><button type="button" class="dado">d6</button
+            ><button type="button" class="dado">d4</button
+            ><button type="button" class="dado">d3</button
+            ><button type="button" class="dado">d2</button
+            ><button type="button" class="dado">dF</button>
+          </div>
+        </section>
 
-      <section class="caixa-botoes">
-        <section>
-          <div class="fileira">
-            <button type="button" class="sinal">K</button
-            ><button type="button" class="sinal">X</button
-            ><button type="button" class="sinal">R</button>
-          </div>
-          <div class="fileira">
-            <button type="button" class="sinal">k</button
-            ><button type="button" class="sinal">x</button
-            ><button type="button" class="sinal">r</button>
-          </div>
-          <div class="fileira">
-            <button type="button" class="sinal">≥</button
-            ><button type="button" class="sinal">+</button
-            ><button type="button" class="sinal">!</button>
-          </div>
-          <div class="fileira">
-            <button type="button" class="sinal">≤</button
-            ><button type="button" class="sinal">-</button
-            ><button type="button" class="sinal">!!</button>
-          </div>
+        <section class="caixa-botoes">
+          <section>
+            <div class="fileira">
+              <button type="button" class="sinal">K</button
+              ><button type="button" class="sinal">X</button
+              ><button type="button" class="sinal">R</button>
+            </div>
+            <div class="fileira">
+              <button type="button" class="sinal">k</button
+              ><button type="button" class="sinal">x</button
+              ><button type="button" class="sinal">r</button>
+            </div>
+            <div class="fileira">
+              <button type="button" class="sinal">≥</button
+              ><button type="button" class="sinal">+</button
+              ><button type="button" class="sinal">!</button>
+            </div>
+            <div class="fileira">
+              <button type="button" class="sinal">≤</button
+              ><button type="button" class="sinal">-</button
+              ><button type="button" class="sinal">!!</button>
+            </div>
+          </section>
+          <section class="numeros">
+            <div class="fileira">
+              <button class="numero" type="button">1</button
+              ><button class="numero" type="button">2</button
+              ><button class="numero" type="button">3</button>
+            </div>
+            <div class="fileira">
+              <button class="numero" type="button">4</button
+              ><button class="numero" type="button">5</button
+              ><button class="numero" type="button">6</button>
+            </div>
+            <div class="fileira">
+              <button class="numero" type="button">7</button
+              ><button class="numero" type="button">8</button
+              ><button class="numero" type="button">9</button>
+            </div>
+            <div class="fileira">
+              <button class="numero" type="button">0</button
+              ><button class="apagar" type="button">CE</button>
+            </div>
+          </section>
         </section>
-        <section class="numeros">
-          <div class="fileira">
-            <button class="numero" type="button">1</button
-            ><button class="numero" type="button">2</button
-            ><button class="numero" type="button">3</button>
-          </div>
-          <div class="fileira">
-            <button class="numero" type="button">4</button
-            ><button class="numero" type="button">5</button
-            ><button class="numero" type="button">6</button>
-          </div>
-          <div class="fileira">
-            <button class="numero" type="button">7</button
-            ><button class="numero" type="button">8</button
-            ><button class="numero" type="button">9</button>
-          </div>
-          <div class="fileira">
-            <button class="numero" type="button">0</button
-            ><button class="apagar" type="button">CE</button>
-          </div>
-        </section>
+        <button type="button" class="rolar">Rolar</button>
       </section>
-      <button type="button" class="rolar">Rolar</button>
-    </section>
+      <section id="hist" class="container hist"></section>
+    </main>
   </body>
   <script src="utilidades.js"></script>
   <script src="botoes.js"></script>
