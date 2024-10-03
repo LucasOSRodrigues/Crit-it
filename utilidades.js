@@ -158,11 +158,24 @@ function exibir(resultado, formula, rolagens) {
   resultadoDiv.className = "resultado"
 
   formulaDiv.innerText = formula.join("")
-  rolagensDiv.innerText = rolagens.join(" ")
+  rolagensDiv.innerText = lidarComRolagens(rolagens)
   resultadoDiv.innerText = resultado
 
   verticalDiv.append(formulaDiv, rolagensDiv)
   blocoSec.append(verticalDiv, resultadoDiv)
 
   histSec.append(blocoSec)
+}
+
+function lidarComRolagens(rolls) {
+  const rolagens = []
+  for (let i in rolls) {
+    if (typeof rolls[i] === "object") {
+      rolagens.push(`[${rolls[i].join(", ")}]`)
+    } else {
+      rolagens.push(rolls[i])
+    }
+  }
+
+  return rolagens.join(" ")
 }

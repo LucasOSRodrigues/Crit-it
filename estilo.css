@@ -55,10 +55,14 @@ main {
 
   transition: width 0.5s;
 
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
-.hist:hover {
+.hist::-webkit-scrollbar {
+  width: 0;
+}
+
+.ativado {
   height: 425px;
   content-visibility: visible;
   width: 300px;

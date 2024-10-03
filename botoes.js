@@ -3,6 +3,19 @@ const botaoRolar = document.querySelector(".rolar")
 
 const botoes = document.querySelectorAll("button")
 
+const hist = document.querySelector(".hist")
+let histAtivo = false
+
+hist.addEventListener("mouseenter", (event) => {
+  if (!histAtivo) {
+    hist.classList.add("ativado")
+    histAtivo = true
+  } else {
+    hist.classList.remove("ativado")
+    histAtivo = false
+  }
+})
+
 let ultimoTipoPressionado = ""
 let formula = []
 
