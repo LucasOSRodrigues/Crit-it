@@ -164,7 +164,7 @@ function exibir(resultado, formula, rolagens) {
   verticalDiv.append(formulaDiv, rolagensDiv)
   blocoSec.append(verticalDiv, resultadoDiv)
 
-  histSec.append(blocoSec)
+  histSec.insertBefore(blocoSec, histSec.firstChild)
 }
 
 function lidarComRolagens(rolls) {
