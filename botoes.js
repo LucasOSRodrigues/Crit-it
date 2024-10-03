@@ -6,7 +6,7 @@ const botoes = document.querySelectorAll("button")
 const hist = document.querySelector(".hist")
 let histAtivo = false
 
-hist.addEventListener("mouseenter", (event) => {
+hist.addEventListener("click", () => {
   if (!histAtivo) {
     hist.classList.add("ativado")
     histAtivo = true

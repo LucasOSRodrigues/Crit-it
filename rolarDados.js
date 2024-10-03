@@ -132,8 +132,6 @@ function revisarFormula() {
 
     Isso serve para o código saber qual dado ele deve rolar caso exploda.
     */
-    if (typeof valorAtual === "number")
-      formulaRevisada.splice(i, 1, +valorAtual)
 
     if (valorAtual === "%") formulaRevisada.splice(i, 1, 100)
 
@@ -160,7 +158,6 @@ function revisarFormula() {
       if (!["≥", "≤"].includes(proximoValor) && !+proximoValor) {
         formulaRevisada.splice(+i + 1, 0, 1)
       }
-
       formulaRevisada.splice(+i + 1, 0, +valorAnterior)
     } // formula: ("R" ou "r"), valor, faces
   }
