@@ -61,14 +61,10 @@ function keep(resultadosCorrentes, quantidade = 1, maior = 1) {
   if (quantidade > tamanhoUltimaRolagem) quantidade = tamanhoUltimaRolagem
   if (quantidade < 0) return [0]
 
-  if (maior) {
-    ultimaRolagem.sort((a, b) => b - a)
-  } else {
-    ultimaRolagem.sort((a, b) => a - b)
-  }
+  if (maior) ultimaRolagem.sort((a, b) => b - a)
+  else ultimaRolagem.sort((a, b) => a - b)
 
   const valoresMantidos = ultimaRolagem.slice(0, quantidade)
-
   return valoresMantidos.length ? valoresMantidos : [0]
 }
 
