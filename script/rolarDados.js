@@ -166,24 +166,18 @@ function revisarFormula() {
 }
 
 function calcular(formula) {
-  for (let i in formula) {
-    if (["object", "number"].includes(typeof formula[i])) {
+  for (let i in formula)
+    if (["object", "number"].includes(typeof formula[i]))
       formula.splice(i, 1, somar(formula[i]))
-    }
-  }
 
   let soma = +formula[0]
 
   for (let i in formula) {
     const proximoValor = formula[+i + 1]
-    const valorAnterior = formula[i - 1]
     const valorAtual = formula[i]
 
-    if (valorAtual === "+") {
-      soma += +proximoValor
-    } else if (valorAnterior === "-") {
-      soma -= +proximoValor
-    }
+    if (valorAtual === "+") soma += +proximoValor
+    else if (valorAtual === "-") soma -= +proximoValor
   }
   return soma ? soma : 0
 }
