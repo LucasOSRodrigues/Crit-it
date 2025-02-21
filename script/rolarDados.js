@@ -13,9 +13,8 @@ function executarFormula(formula) {
         if (
           ["+", "-", undefined].includes(valorAnterior) &&
           proximoValor !== "d"
-        ) {
+        )
           resultadosCorrentes.push(valorAtual)
-        }
         break
       case "string":
         switch (valorAtual) {
@@ -119,26 +118,29 @@ function executarFormula(formula) {
 }
 
 // Revisa formula e adiciona valores após sinais para simplificar a execução da formula
-
 function revisarFormula() {
   const formulaRevisada = [...formula]
   for (let i = 0; i < formulaRevisada.length; i++) {
     const proximoValor = formulaRevisada[+i + 1]
     const valorAnterior = formulaRevisada[i - 1]
     const valorAtual = formulaRevisada[i]
+
     /*
     Se o valor atual for "!" ou "!!" e o próximo valor não for numerico
     Adicionar o valor anterior (faces do ultimo dado rolado) na frente do atual.
 
     Isso serve para o código saber qual dado ele deve rolar caso exploda.
     */
-
-    if (valorAtual === "%") formulaRevisada.splice(i, 1, 100)
+    if (valorAtual === "%") {
+      formulaRevisada.splice(i, 1, 100)
+      continue
+    }
 
     if (["!", "!!"].includes(valorAtual) && !+proximoValor) {
       const facesUltimoDado = !+valorAnterior ? 1 : +formulaRevisada[+i - 1]
 
       formulaRevisada.splice(+i + 1, 0, facesUltimoDado)
+      continue
     }
 
     /* Se o valor atual for "K", "k", "X", "x", "≥" ou "≤"
@@ -146,8 +148,8 @@ function revisarFormula() {
      */
     if (["K", "k", "X", "x", "≥", "≤"].includes(valorAtual) && !+proximoValor) {
       formulaRevisada.splice(+i + 1, 0, 1)
+      continue
     }
-
     /*
      Se o valor atual for "R" ou "r"
         Adicionar o valor anterior (faces do ultimo dado) à frente.
@@ -155,10 +157,10 @@ function revisarFormula() {
         Adicionar 1 à frente.
      */
     if (["r", "R"].includes(valorAtual)) {
-      if (!["≥", "≤"].includes(proximoValor) && !+proximoValor) {
+      if (!["≥", "≤"].includes(proximoValor) && !+proximoValor)
         formulaRevisada.splice(+i + 1, 0, 1)
-      }
       formulaRevisada.splice(+i + 1, 0, +valorAnterior)
+      continue
     } // formula: ("R" ou "r"), valor, faces
   }
 
