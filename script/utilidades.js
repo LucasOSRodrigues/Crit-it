@@ -1,48 +1,12 @@
-const d2 = dado(2)
-const d3 = dado(3)
-const d4 = dado(4)
-const d6 = dado(6)
-const d8 = dado(8)
-const d10 = dado(10)
-const d12 = dado(12)
-const d20 = dado(20)
-const d100 = dado(100)
-const dF = [-1, 0, 1]
-
-const dados = {
-  2: d2,
-  3: d3,
-  4: d4,
-  6: d6,
-  8: d8,
-  10: d10,
-  12: d12,
-  20: d20,
-  100: d100,
-  F: dF,
-}
-
 const histSec = document.getElementById("hist")
 
-function embaralhar(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
-  }
-  return array
-}
-
-function dado(face) {
-  let arr = []
-  for (let i = 1; i <= face; i++) arr.push(i)
-  return arr
-}
-
 function rolarDados(quantidade, dado) {
+  const fudgeOuUm = dado === "F" ? -1 : 1
+  if (fudgeOuUm === -1) dado = 3
+
   let dadosRolados = []
-  for (let i = 0; i < quantidade; i++) {
-    dadosRolados.push(embaralhar(dado)[0])
-  }
+  for (let i = 0; i < quantidade; i++)
+    dadosRolados.push(Math.floor(Math.random() * dado) + fudgeOuUm)
   return dadosRolados
 }
 
@@ -104,13 +68,8 @@ function Reroll(rolagens, faces, comparado, sinal, condicao = "") {
       (rolagens[i] >= comparado && condicao === "≥") ||
       (rolagens[i] <= comparado && condicao === "≤")
     ) {
-      const tipoDado = dados[faces]
       // Adiciona um valor aleatorio na frente do valor atual
-      rolagens.splice(
-        i + 1,
-        0,
-        +rolarDados(1, tipoDado ? tipoDado : dado(faces))
-      )
+      rolagens.splice(i + 1, 0, +rolarDados(1, faces))
       // Aumenta o tamanhoRolagens pq o statement acima acresce a variável.
       tamanhoRolagens++
       //i++ pra pular o valor já criado caso sinal === "r"

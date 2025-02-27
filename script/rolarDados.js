@@ -19,16 +19,7 @@ function executarFormula(formula) {
       case "string":
         switch (valorAtual) {
           case "d":
-            let tipoDado = dados.hasOwnProperty(proximoValor)
-              ? [...dados[proximoValor]]
-              : false
-
-            resultadosCorrentes.push(
-              rolarDados(
-                valorAnterior,
-                tipoDado ? tipoDado : dado(proximoValor)
-              )
-            )
+            resultadosCorrentes.push(rolarDados(valorAnterior, proximoValor))
             break
 
           case "F":
