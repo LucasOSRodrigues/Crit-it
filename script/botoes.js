@@ -121,9 +121,15 @@ botoes.forEach((botao) =>
             if (["!", "!!"].includes(formula.at(-1))) break
 
             formula.push(event.target.innerText)
-            ultimoTipoPressionado = "sufixo"
+            ultimoTipoPressionado = ["+", "-"].includes(formula.at(-2))
+            // at(-2) pula o valor recem adicionado.
+              ? "numero"
+              : "sufixo"
             break
-          // Sufixo é todo numero que vem depois de um sinal
+          // Sufixo é todo numero que vem depois de um sinal, exceto o sinal de + ou -
+          // Essa condição é importante pois se não diferenciar numero de sufixo,
+          // e um dado for clicado após o numero, o dado seria somado invés de ser multiplicado.
+          // Ex: input:1d10 + 2 d10; realidade: 1d10 + 2 + 1d10; esperado: 1d10 + 2d10.
 
           default:
             formula.push(event.target.innerText)
