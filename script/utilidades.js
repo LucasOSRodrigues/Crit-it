@@ -1,5 +1,3 @@
-const histSec = document.getElementById("hist")
-
 function rolarDados(quantidade, dado) {
   const fudgeOuUm = dado === "F" ? -1 : 1
   if (fudgeOuUm === -1) dado = 3
@@ -98,6 +96,8 @@ function comparar(rolagens, comparador, comparado) {
   }
   return rolagensComparadas
 }
+
+const histSec = document.querySelector(".hist-content")
 
 function exibir(resultado, formula, rolagens) {
   const blocoSec = document.createElement("section")
