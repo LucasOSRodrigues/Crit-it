@@ -1,2 +1,2 @@
-# Dices-and-Dragons
+# Crit It!
  Calculadora de dados para RPG
