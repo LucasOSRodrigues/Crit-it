@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crit It!</title>
+    <link rel="stylesheet" href="estilo.css" />
+    <link rel="shortcut icon" href="dice.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <main>
+      <section class="container calc">
+        <section class="tela"></section>
+        <section class="dados">
+          <div class="fileira cima">
+            <button type="button" class="dado">dN</button
+            ><button type="button" class="dado">d%</button
+            ><button type="button" class="dado">d20</button
+            ><button type="button" class="dado">d12</button
+            ><button type="button" class="dado">d10</button>
+          </div>
+          <div class="fileira baixo">
+            <button type="button" class="dado">d8</button
+            ><button type="button" class="dado">d6</button
+            ><button type="button" class="dado">d4</button
+            ><button type="button" class="dado">d3</button
+            ><button type="button" class="dado">d2</button
+            ><button type="button" class="dado">dF</button>
+          </div>
+        </section>
+
+        <section class="caixa-botoes">
+          <section>
+            <div class="fileira">
+              <button type="button" class="sinal">K</button
+              ><button type="button" class="sinal">X</button
+              ><button type="button" class="sinal">R</button>
+            </div>
+            <div class="fileira">
+              <button type="button" class="sinal">k</button
+              ><button type="button" class="sinal">x</button
+              ><button type="button" class="sinal">r</button>
+            </div>
+            <div class="fileira">
+              <button type="button" class="sinal">≥</button
+              ><button type="button" class="sinal">+</button
+              ><button type="button" class="sinal">!</button>
+            </div>
+            <div class="fileira">
+              <button type="button" class="sinal">≤</button
+              ><button type="button" class="sinal">-</button
+              ><button type="button" class="sinal">!!</button>
+            </div>
+          </section>
+          <section class="numeros">
+            <div class="fileira">
+              <button class="numero" type="button">1</button
+              ><button class="numero" type="button">2</button
+              ><button class="numero" type="button">3</button>
+            </div>
+            <div class="fileira">
+              <button class="numero" type="button">4</button
+              ><button class="numero" type="button">5</button
+              ><button class="numero" type="button">6</button>
+            </div>
+            <div class="fileira">
+              <button class="numero" type="button">7</button
+              ><button class="numero" type="button">8</button
+              ><button class="numero" type="button">9</button>
+            </div>
+            <div class="fileira">
+              <button class="numero" type="button">0</button>
+            </div>
+          </section>
+        </section>
+        <div class="fileira botoes-finais">
+          <button class="apagar" type="button">CE</button>
+          <button type="button" class="rolar">Rolar</button>
+        </div>
+      </section>
+      <section id="hist" class="container hist">
+        <div class="hist-content"></div>
+      </section>
+    </main>
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <div class="popup-resultado"></div>
+        <div class="popup-formula"></div>
+        <div class="popup-rolagens"></div>
+        <button class="popup-fechar">Fechar</button>
+      </div>
+    </div>
+  </body>
+  <script src="./script/utilidades.js"></script>
+  <script src="./script/botoes.js"></script>
+  <script src="./script/rolarDados.js"></script>
+</html>
