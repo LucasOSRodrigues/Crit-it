@@ -82,13 +82,8 @@ botoes.forEach((botao) =>
             break
           case "numero":
           case "sufixo":
-            if (
-              event.target.innerText === "+" ||
-              event.target.innerText === "-"
-            ) {
-              formula.push(event.target.innerText)
-              ultimoTipoPressionado = "sinal"
-            }
+            formula.push(event.target.innerText)
+            ultimoTipoPressionado = "sinal"
             break
           case "sinal":
             // > e < pode vir depois de R ou r
