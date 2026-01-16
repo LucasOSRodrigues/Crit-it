@@ -134,3 +134,28 @@ function lidarComRolagens(rolls) {
 
   return rolagens.join(" ")
 }
+
+function mostrarPopup(resultado, formula, rolagens) {
+  const popup = document.getElementById("popup")
+  const popupResultado = document.querySelector(".popup-resultado")
+  const popupFormula = document.querySelector(".popup-formula")
+  const popupRolagens = document.querySelector(".popup-rolagens")
+  const popupFechar = document.querySelector(".popup-fechar")
+
+  popupResultado.textContent = resultado
+  popupFormula.textContent = formula.join("")
+  popupRolagens.textContent = lidarComRolagens(rolagens)
+
+  popup.classList.add("mostrar")
+
+  function fecharPopup() {
+    popup.classList.remove("mostrar")
+  }
+
+  popupFechar.addEventListener("click", fecharPopup, { once: true })
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) {
+      fecharPopup()
+    }
+  }, { once: true })
+}

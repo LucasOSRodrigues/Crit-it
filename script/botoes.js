@@ -3,15 +3,19 @@ const botaoRolar = document.querySelector(".rolar")
 
 const botoes = document.querySelectorAll("button")
 
+const calc = document.querySelector(".calc")
+
 const hist = document.querySelector(".hist")
 let histAtivo = false
 
 hist.addEventListener("click", () => {
   if (!histAtivo) {
     hist.classList.add("ativado")
+    calc.classList.add("desativado")
     histAtivo = true
   } else {
     hist.classList.remove("ativado")
+    calc.classList.remove("desativado")
     histAtivo = false
   }
 })
@@ -151,6 +155,7 @@ botoes.forEach((botao) =>
           const resultado = calcular([...rolagens])
 
           exibir(resultado, formula, rolagens)
+          mostrarPopup(resultado, formula, rolagens)
         }
         break
     }
